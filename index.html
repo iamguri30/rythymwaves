@@ -481,27 +481,29 @@
     <script>
         document.getElementById("sendForm").addEventListener("submit", function (event) {
             event.preventDefault();
+
+            // Get form input values
             var fname = document.getElementById("fname").value;
             var sname = document.getElementById("sname").value;
             var email = document.getElementById("email").value;
             var pno = document.getElementById("pno").value;
             var msg = document.getElementById("msg").value;
-            let contact = 9781976810;
 
-            var encodedMessage = encodeURIComponent(
-                "Name: " + fname+" "+sname + "\n" +
-                "Email: " + email + "\n" +
-                "Phone: " + pno + "\n" +
-                "Message: " + msg
-            );
+            // Construct the message to be sent via WhatsApp
+            var message = `Name: ${fname} ${sname}\nEmail: ${email}\nPhone: ${pno}\nMessage: ${msg}`;
+            var encodedMessage = encodeURIComponent(message);
 
-            var link;
-            // Check if user is on a mobile device
-            var   link = `https://web.whatsapp.com/send?phone=${contact}&text=${encodedMessage}`;
+            // Specify the WhatsApp phone number (replace with your phone number)
+            var whatsappNumber = "9781976810";
 
-            window.open(link, '_blank');
-        })
+            // Construct the WhatsApp link
+            var whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+            // Open the WhatsApp link in a new tab/window
+            window.open(whatsappLink, "_blank");
+        });
     </script>
+
 
 
 </body>
