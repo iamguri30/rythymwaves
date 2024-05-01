@@ -482,25 +482,33 @@
         document.getElementById("sendForm").addEventListener("submit", function (event) {
             event.preventDefault();
 
-            // Get form input values
+            // Retrieve form input values
             var fname = document.getElementById("fname").value;
             var sname = document.getElementById("sname").value;
             var email = document.getElementById("email").value;
             var pno = document.getElementById("pno").value;
             var msg = document.getElementById("msg").value;
+            var contact = "9781976810"; // Replace with your WhatsApp contact number including country code
 
-            // Construct the message to be sent via WhatsApp
-            var message = `Name: ${fname} ${sname}\nEmail: ${email}\nPhone: ${pno}\nMessage: ${msg}`;
-            var encodedMessage = encodeURIComponent(message);
+            // Construct the message for WhatsApp
+            var encodedMessage = encodeURIComponent(
+                `Name: ${fname} ${sname}\nEmail: ${email}\nPhone: ${pno}\nMessage: ${msg}`
+            );
 
-            // Specify the WhatsApp phone number (replace with your phone number)
-            var whatsappNumber = "9781976810";
+            // Determine the WhatsApp link based on the user's device
+            var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            var whatsappLink;
 
-            // Construct the WhatsApp link
-            var whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            if (isMobile) {
+                // Open WhatsApp app on mobile devices
+                whatsappLink = `whatsapp://send?phone=${contact}&text=${encodedMessage}`;
+            } else {
+                // Open WhatsApp Web on desktop devices
+                whatsappLink = `https://web.whatsapp.com/send?phone=${contact}&text=${encodedMessage}`;
+            }
 
-            // Open the WhatsApp link in a new tab/window
-            window.open(whatsappLink, "_blank");
+            // Open the WhatsApp link in a new window/tab
+            window.open(whatsappLink, '_blank');
         });
     </script>
 
